@@ -1,0 +1,529 @@
+{
+    "id": "68b253f4-7e1e-4518-b47f-ac170201d849",
+    "revision": 0,
+    "last_node_id": 16,
+    "last_link_id": 11,
+    "nodes": [
+        {
+            "id": 5,
+            "type": "DraggenMoodboardRendered",
+            "pos": [
+                1198.614106356206,
+                2050.558748471719
+            ],
+            "size": [
+                201.187109375,
+                26
+            ],
+            "flags": {
+                "collapsed": false
+            },
+            "order": 5,
+            "mode": 0,
+            "inputs": [
+                {
+                    "localized_name": "moodboard",
+                    "name": "moodboard",
+                    "type": "DRAGGEN_MOODBOARD",
+                    "link": 3
+                }
+            ],
+            "outputs": [
+                {
+                    "localized_name": "IMAGE",
+                    "name": "IMAGE",
+                    "type": "IMAGE",
+                    "links": [
+                        5
+                    ]
+                }
+            ],
+            "properties": {
+                "Node name for S&R": "DraggenMoodboardRendered"
+            },
+            "widgets_values": []
+        },
+        {
+            "id": 4,
+            "type": "DraggenMoodboardImages",
+            "pos": [
+                1196.3670075363998,
+                1799.6800357519621
+            ],
+            "size": [
+                199.259375,
+                26
+            ],
+            "flags": {},
+            "order": 4,
+            "mode": 0,
+            "inputs": [
+                {
+                    "localized_name": "moodboard",
+                    "name": "moodboard",
+                    "type": "DRAGGEN_MOODBOARD",
+                    "link": 2
+                }
+            ],
+            "outputs": [
+                {
+                    "localized_name": "IMAGE",
+                    "name": "IMAGE",
+                    "shape": 6,
+                    "type": "IMAGE",
+                    "links": [
+                        4
+                    ]
+                }
+            ],
+            "properties": {
+                "Node name for S&R": "DraggenMoodboardImages"
+            },
+            "widgets_values": []
+        },
+        {
+            "id": 6,
+            "type": "PreviewImage",
+            "pos": [
+                1478.821944012156,
+                1729.358523461588
+            ],
+            "size": [
+                140,
+                246
+            ],
+            "flags": {},
+            "order": 8,
+            "mode": 0,
+            "inputs": [
+                {
+                    "localized_name": "images",
+                    "name": "images",
+                    "type": "IMAGE",
+                    "link": 4
+                }
+            ],
+            "outputs": [],
+            "properties": {
+                "cnr_id": "comfy-core",
+                "ver": "0.10.0",
+                "Node name for S&R": "PreviewImage"
+            },
+            "widgets_values": []
+        },
+        {
+            "id": 7,
+            "type": "PreviewImage",
+            "pos": [
+                1479.5833439326182,
+                2041.5324908509924
+            ],
+            "size": [
+                140,
+                246.00000000000023
+            ],
+            "flags": {},
+            "order": 9,
+            "mode": 0,
+            "inputs": [
+                {
+                    "localized_name": "images",
+                    "name": "images",
+                    "type": "IMAGE",
+                    "link": 5
+                }
+            ],
+            "outputs": [],
+            "properties": {
+                "cnr_id": "comfy-core",
+                "ver": "0.10.0",
+                "Node name for S&R": "PreviewImage"
+            },
+            "widgets_values": []
+        },
+        {
+            "id": 15,
+            "type": "Note",
+            "pos": [
+                466.6398351957895,
+                1690.2523769624024
+            ],
+            "size": [
+                285.14545888740463,
+                316.14860230355634
+            ],
+            "flags": {},
+            "order": 0,
+            "mode": 0,
+            "inputs": [],
+            "outputs": [],
+            "properties": {},
+            "widgets_values": [
+                "Create an API key in your account settings on the Draggen io dashboard. Copy that key to api_key and click load_boards to select a board.\n\nNote: Remote loading is only available for paid accounts. This is a technical limitation - free accounts store information locally in the browser, which makes them inaccessible to the API."
+            ],
+            "color": "#432",
+            "bgcolor": "#653"
+        },
+        {
+            "id": 3,
+            "type": "DraggenRemoteMoodboardLoader",
+            "pos": [
+                796.909268083091,
+                1912.878677072361
+            ],
+            "size": [
+                270,
+                106
+            ],
+            "flags": {},
+            "order": 1,
+            "mode": 0,
+            "inputs": [
+                {
+                    "localized_name": "moodboard_id",
+                    "name": "moodboard_id",
+                    "type": "STRING",
+                    "widget": {
+                        "name": "moodboard_id"
+                    },
+                    "link": null
+                },
+                {
+                    "localized_name": "api_key",
+                    "name": "api_key",
+                    "type": "STRING",
+                    "widget": {
+                        "name": "api_key"
+                    },
+                    "link": null
+                }
+            ],
+            "outputs": [
+                {
+                    "localized_name": "moodboard",
+                    "name": "moodboard",
+                    "type": "DRAGGEN_MOODBOARD",
+                    "links": [
+                        2,
+                        3
+                    ]
+                }
+            ],
+            "properties": {
+                "Node name for S&R": "DraggenRemoteMoodboardLoader"
+            },
+            "widgets_values": [
+                "",
+                "",
+                "load"
+            ]
+        },
+        {
+            "id": 16,
+            "type": "Note",
+            "pos": [
+                466.6292621065875,
+                2393.974327009186
+            ],
+            "size": [
+                285.14545888740463,
+                316.14860230355634
+            ],
+            "flags": {},
+            "order": 2,
+            "mode": 0,
+            "inputs": [],
+            "outputs": [],
+            "properties": {},
+            "widgets_values": [
+                "Export a board to your local machine from Draggen.io (either from the dashboard with the \"...\" menu, or from the quick action bar in the board).\n\nThen copy the directory you've stored the board in into the folder_path of the local loader."
+            ],
+            "color": "#432",
+            "bgcolor": "#653"
+        },
+        {
+            "id": 14,
+            "type": "PreviewImage",
+            "pos": [
+                1510.4821380334645,
+                2723.212689471475
+            ],
+            "size": [
+                140,
+                246
+            ],
+            "flags": {},
+            "order": 11,
+            "mode": 0,
+            "inputs": [
+                {
+                    "localized_name": "images",
+                    "name": "images",
+                    "type": "IMAGE",
+                    "link": 11
+                }
+            ],
+            "outputs": [],
+            "properties": {
+                "cnr_id": "comfy-core",
+                "ver": "0.10.0",
+                "Node name for S&R": "PreviewImage"
+            },
+            "widgets_values": []
+        },
+        {
+            "id": 13,
+            "type": "PreviewImage",
+            "pos": [
+                1506.9094419521318,
+                2414.576324548886
+            ],
+            "size": [
+                140,
+                246
+            ],
+            "flags": {},
+            "order": 10,
+            "mode": 0,
+            "inputs": [
+                {
+                    "localized_name": "images",
+                    "name": "images",
+                    "type": "IMAGE",
+                    "link": 10
+                }
+            ],
+            "outputs": [],
+            "properties": {
+                "cnr_id": "comfy-core",
+                "ver": "0.10.0",
+                "Node name for S&R": "PreviewImage"
+            },
+            "widgets_values": []
+        },
+        {
+            "id": 11,
+            "type": "DraggenMoodboardImages",
+            "pos": [
+                1172.725914766609,
+                2496.3909738718053
+            ],
+            "size": [
+                199.259375,
+                26
+            ],
+            "flags": {},
+            "order": 6,
+            "mode": 0,
+            "inputs": [
+                {
+                    "localized_name": "moodboard",
+                    "name": "moodboard",
+                    "type": "DRAGGEN_MOODBOARD",
+                    "link": 8
+                }
+            ],
+            "outputs": [
+                {
+                    "localized_name": "IMAGE",
+                    "name": "IMAGE",
+                    "shape": 6,
+                    "type": "IMAGE",
+                    "links": [
+                        10
+                    ]
+                }
+            ],
+            "properties": {
+                "Node name for S&R": "DraggenMoodboardImages"
+            },
+            "widgets_values": []
+        },
+        {
+            "id": 12,
+            "type": "DraggenMoodboardRendered",
+            "pos": [
+                1190.0542177398281,
+                2728.375675288691
+            ],
+            "size": [
+                201.187109375,
+                26
+            ],
+            "flags": {},
+            "order": 7,
+            "mode": 0,
+            "inputs": [
+                {
+                    "localized_name": "moodboard",
+                    "name": "moodboard",
+                    "type": "DRAGGEN_MOODBOARD",
+                    "link": 9
+                }
+            ],
+            "outputs": [
+                {
+                    "localized_name": "IMAGE",
+                    "name": "IMAGE",
+                    "type": "IMAGE",
+                    "links": [
+                        11
+                    ]
+                }
+            ],
+            "properties": {
+                "Node name for S&R": "DraggenMoodboardRendered"
+            },
+            "widgets_values": []
+        },
+        {
+            "id": 1,
+            "type": "DraggenLocalMoodboardLoader",
+            "pos": [
+                786.2853304001737,
+                2618.8548229767757
+            ],
+            "size": [
+                270,
+                58
+            ],
+            "flags": {},
+            "order": 3,
+            "mode": 0,
+            "inputs": [
+                {
+                    "localized_name": "folder_path",
+                    "name": "folder_path",
+                    "type": "STRING",
+                    "widget": {
+                        "name": "folder_path"
+                    },
+                    "link": null
+                }
+            ],
+            "outputs": [
+                {
+                    "localized_name": "moodboard",
+                    "name": "moodboard",
+                    "type": "DRAGGEN_MOODBOARD",
+                    "links": [
+                        8,
+                        9
+                    ]
+                }
+            ],
+            "properties": {
+                "Node name for S&R": "DraggenLocalMoodboardLoader"
+            },
+            "widgets_values": [
+                "C:\\my-path\\draggen-equestrian-farmhouse-board"
+            ]
+        }
+    ],
+    "links": [
+        [
+            2,
+            3,
+            0,
+            4,
+            0,
+            "DRAGGEN_MOODBOARD"
+        ],
+        [
+            3,
+            3,
+            0,
+            5,
+            0,
+            "DRAGGEN_MOODBOARD"
+        ],
+        [
+            4,
+            4,
+            0,
+            6,
+            0,
+            "IMAGE"
+        ],
+        [
+            5,
+            5,
+            0,
+            7,
+            0,
+            "IMAGE"
+        ],
+        [
+            8,
+            1,
+            0,
+            11,
+            0,
+            "DRAGGEN_MOODBOARD"
+        ],
+        [
+            9,
+            1,
+            0,
+            12,
+            0,
+            "DRAGGEN_MOODBOARD"
+        ],
+        [
+            10,
+            11,
+            0,
+            13,
+            0,
+            "IMAGE"
+        ],
+        [
+            11,
+            12,
+            0,
+            14,
+            0,
+            "IMAGE"
+        ]
+    ],
+    "groups": [
+        {
+            "id": 1,
+            "title": "Remote Flow",
+            "bounding": [
+                764.6572620644921,
+                1657.5248490163153,
+                947.6983654254888,
+                642.449928244851
+            ],
+            "color": "#3f789e",
+            "font_size": 24,
+            "flags": {}
+        },
+        {
+            "id": 2,
+            "title": "Local Flow",
+            "bounding": [
+                767.2077795880327,
+                2338.9898921280073,
+                931.0945173599746,
+                647.7462260915827
+            ],
+            "color": "#3f789e",
+            "font_size": 24,
+            "flags": {}
+        }
+    ],
+    "config": {},
+    "extra": {
+        "workflowRendererVersion": "LG",
+        "ds": {
+            "scale": 0.9867545040531953,
+            "offset": [
+                -281.60960678343343,
+                -2094.572533146994
+            ]
+        }
+    },
+    "version": 0.4
+}
