@@ -15,7 +15,7 @@ A set of ComfyUI nodes to integrate with [Draggen.io](https://draggen.io), allow
 1.  Clone this repository into your `ComfyUI/custom_nodes/` directory:
     ```bash
     cd ComfyUI/custom_nodes/
-    git clone https://github.com/yourusername/ComfyUI-Draggen.git
+    git clone https://github.com/kadima-tech/ComfyUI-Draggen.git
     ```
 2.  Restart ComfyUI.
 
@@ -35,7 +35,7 @@ A set of ComfyUI nodes to integrate with [Draggen.io](https://draggen.io), allow
 ![Local Loading](docs/local.png)
 
 ### Processing
-- Connect the `DRAGGEN_MOODBOARD` output to **Draggen Board to Image** to get a rendered view.
+- Connect the `moodboard` output to **Draggen Board to Image** to get a rendered view.
 - Connect to **Draggen Extract Images** to get a batch of source images.
 - Connect to **Draggen Extract Text** to get the text content.
 
