@@ -9,15 +9,31 @@ A set of ComfyUI nodes to integrate with [Draggen.io](https://draggen.io), allow
 - **Board to Image:** Render the moodboard as a composite image, respecting element positioning and z-index.
 - **Image Extractor:** Extract individual images from the moodboard for batch processing.
 - **Text Extractor:** Extract text descriptions/prompts from the moodboard.
-
 ## Installation
 
-1.  Clone this repository into your `ComfyUI/custom_nodes/` directory:
-    ```bash
-    cd ComfyUI/custom_nodes/
-    git clone https://github.com/kadima-tech/ComfyUI-Draggen.git
-    ```
-2.  Restart ComfyUI.
+### Option 1 — Install via ComfyUI Manager (Recommended)
+
+1. Open **ComfyUI**.
+2. Go to **Manager → Install Custom Nodes**.
+3. Search for: ComfyUI-Draggen4. Click **Install**.
+5. Restart **ComfyUI**.
+
+> If the repository is not yet listed, use **Install via Git URL** and paste:
+>
+> ```
+> https://github.com/kadima-tech/ComfyUI-Draggen.git
+> ```
+
+---
+
+### Option 2 — Manual Installation (Git)
+
+1. Clone this repository into your `ComfyUI/custom_nodes/` directory:
+
+```bash
+cd ComfyUI/custom_nodes/
+git clone https://github.com/kadima-tech/ComfyUI-Draggen.git
+```
 
 ## Usage
 
