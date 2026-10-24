@@ -8,8 +8,10 @@ on:
     paths:
       - "pyproject.toml"
 
+# Checkout needs contents: read. The action publishes with REGISTRY_ACCESS_TOKEN
+# and does not write to GitHub issues or pull requests.
 permissions:
-  issues: write
+  contents: read
 
 jobs:
   publish-node:
@@ -18,11 +20,14 @@ jobs:
     if: ${{ github.repository_owner == 'kadima-tech' }}
     steps:
       - name: Check out code
-        uses: actions/checkout@v4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           submodules: true
       - name: Publish Custom Node
-        uses: Comfy-Org/publish-node-action@v1
+        # v1 branch tip (2024-05-17). Release tags 1.0.0 and 1.0.1 both point at
+        # 7578cdb, whose action still runs `comfy --yes`. Current comfy-cli has
+        # no --yes flag, so that tagged action fails before publish.
+        uses: Comfy-Org/publish-node-action@0eb6cd742945443bee7f79eeddd4f732780029a1 # v1
         with:
           ## Add your own personal access token to your Github Repository secrets and reference it here.
           personal_access_token: ${{ secrets.REGISTRY_ACCESS_TOKEN }}
