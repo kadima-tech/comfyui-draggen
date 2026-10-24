@@ -8,8 +8,8 @@ on:
     paths:
       - "pyproject.toml"
 
-# Checkout needs contents: read. The action publishes with REGISTRY_ACCESS_TOKEN
-# and does not write to GitHub issues or pull requests.
+# Checkout needs contents: read. Publishing uses REGISTRY_ACCESS_TOKEN and
+# does not write to GitHub issues or pull requests.
 permissions:
   contents: read
 
@@ -23,11 +23,23 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           submodules: true
-      - name: Publish Custom Node
-        # v1 branch tip (2024-05-17). Release tags 1.0.0 and 1.0.1 both point at
-        # 7578cdb, whose action still runs `comfy --yes`. Current comfy-cli has
-        # no --yes flag, so that tagged action fails before publish.
-        uses: Comfy-Org/publish-node-action@0eb6cd742945443bee7f79eeddd4f732780029a1 # v1
+
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
-          ## Add your own personal access token to your Github Repository secrets and reference it here.
-          personal_access_token: ${{ secrets.REGISTRY_ACCESS_TOKEN }}
+          python-version: "3.12"
+
+      - name: Install comfy-cli
+        # comfy-cli 1.22.0 (PyPI 2026-09-30) plus its dependency set, hash-locked.
+        run: python -m pip install --require-hashes -r .github/requirements/comfy-cli.txt
+
+      - name: Publish custom node
+        env:
+          REGISTRY_ACCESS_TOKEN: ${{ secrets.REGISTRY_ACCESS_TOKEN }}
+        run: |
+          if [ -z "${REGISTRY_ACCESS_TOKEN}" ]; then
+            echo "REGISTRY_ACCESS_TOKEN is not set" >&2
+            exit 1
+          fi
+          comfy --skip-prompt --no-enable-telemetry env
+          comfy node publish --token "${REGISTRY_ACCESS_TOKEN}"
