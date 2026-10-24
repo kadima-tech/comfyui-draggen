@@ -30,6 +30,9 @@ venv/
 .idea/
 .vscode/
 
+# Tools
+.ruff_cache/
+
 # Draggen Specific
 draggen_token.json
 debug_test.py

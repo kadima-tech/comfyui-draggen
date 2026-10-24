@@ -1,0 +1,90 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      - name: Install
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt ruff==0.17.1
+
+      - name: Lint
+        run: ruff check .
+
+      - name: Compile and import
+        run: |
+          python -m compileall -q -f .
+          python - << 'PY'
+          import importlib.util
+          import sys
+          import tempfile
+          from pathlib import Path
+
+          root = Path(".").resolve()
+          pkg = "draggen_nodes"
+          module = importlib.util.module_from_spec(
+              importlib.util.spec_from_loader(pkg, loader=None)
+          )
+          module.__path__ = [str(root)]
+          module.__package__ = pkg
+          sys.modules[pkg] = module
+
+          def load(name: str):
+              path = root / f"{name}.py"
+              spec = importlib.util.spec_from_file_location(f"{pkg}.{name}", path)
+              loaded = importlib.util.module_from_spec(spec)
+              sys.modules[spec.name] = loaded
+              spec.loader.exec_module(loaded)
+              return loaded
+
+          client_mod = load("draggen_client")
+          compositor_mod = load("compositor")
+          from PIL import Image
+
+          with tempfile.TemporaryDirectory() as tmp:
+              folder = Path(tmp)
+              images = folder / "images"
+              images.mkdir()
+              Image.new("RGBA", (8, 8), (10, 20, 30, 255)).save(images / "a.png")
+              (folder / "data.json").write_text(
+                  '{"projects":[{"id":"b1","name":"Board","elements":['
+                  '{"id":"t1","type":"text","text":"hello","position":{"x":0,"y":0},'
+                  '"size":{"width":80,"height":40},"zIndex":2},'
+                  '{"id":"box1","type":"box","position":{"x":10,"y":10},'
+                  '"size":{"width":40,"height":30},"zIndex":0,'
+                  '"fillColor":"#112233","borderColor":"#abcdef"},'
+                  '{"id":"i1","type":"image","src":"images/a.png",'
+                  '"position":{"x":4,"y":4},"size":{"width":16,"height":16},"zIndex":1}'
+                  "]}]}",
+                  encoding="utf-8",
+              )
+              board = client_mod.DraggenClient().load_local(str(folder))
+              image = compositor_mod.DraggenCompositor.render(
+                  board, base_path=board.base_path
+              )
+              assert image.mode == "RGBA"
+              # Image element starts at padding + position. The corner pixel is
+              # filtered by LANCZOS, so check the center. A failed load is solid red.
+              assert image.getpixel((62, 62)) == (10, 20, 30, 255)
+              loaded = compositor_mod.DraggenCompositor.get_image_from_url_or_path(
+                  "images/a.png", base_path=str(folder)
+              )
+              assert loaded.mode == "RGBA" and loaded.size == (8, 8)
+          print("import and render check ok")
+          PY
