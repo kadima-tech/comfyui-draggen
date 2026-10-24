@@ -1,5 +1,7 @@
 # ComfyUI-Draggen
 
+<img src="docs/icon.png" alt="Draggen" width="128">
+
 A set of ComfyUI nodes to integrate with [Draggen.io](https://draggen.io), allowing you to load moodboards from the Draggen API or local storage and use them in your generative workflows.
 
 ## Features

@@ -1,7 +1,7 @@
 [project]
 name = "draggen"
 description = "Load and use your Draggen.io moodboards directly in ComfyUI."
-version = "1.0.0"
+version = "1.0.1"
 license = { file = "LICENSE" }
 requires-python = ">=3.9"
 # Keep in sync with requirements.txt. ComfyUI Manager installs that file;
@@ -28,8 +28,8 @@ Documentation = "https://github.com/kadima-tech/comfyui-draggen/blob/main/README
 [tool.comfy]
 PublisherId = "kadima-tech"
 DisplayName = "Draggen"
-# docs/local.png and docs/remote.png are wide screenshots, not a square icon.
-Icon = ""
+# Square 400x400 dragon mark. The registry fetches this raw URL; docs/icon.png is the same file.
+Icon = "https://raw.githubusercontent.com/kadima-tech/comfyui-draggen/main/docs/icon.png"
 includes = []
 # First tagged ComfyUI release. It already serves WEB_DIRECTORY and PromptServer routes.
 requires-comfyui = ">=0.0.1"
