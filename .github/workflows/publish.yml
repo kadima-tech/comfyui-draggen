@@ -8,8 +8,10 @@ on:
     paths:
       - "pyproject.toml"
 
+# Checkout needs contents: read. Publishing uses REGISTRY_ACCESS_TOKEN and
+# does not write to GitHub issues or pull requests.
 permissions:
-  issues: write
+  contents: read
 
 jobs:
   publish-node:
@@ -18,11 +20,26 @@ jobs:
     if: ${{ github.repository_owner == 'kadima-tech' }}
     steps:
       - name: Check out code
-        uses: actions/checkout@v4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           submodules: true
-      - name: Publish Custom Node
-        uses: Comfy-Org/publish-node-action@v1
+
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
-          ## Add your own personal access token to your Github Repository secrets and reference it here.
-          personal_access_token: ${{ secrets.REGISTRY_ACCESS_TOKEN }}
+          python-version: "3.12"
+
+      - name: Install comfy-cli
+        # comfy-cli 1.22.0 (PyPI 2026-09-30) plus its dependency set, hash-locked.
+        run: python -m pip install --require-hashes -r .github/requirements/comfy-cli.txt
+
+      - name: Publish custom node
+        env:
+          REGISTRY_ACCESS_TOKEN: ${{ secrets.REGISTRY_ACCESS_TOKEN }}
+        run: |
+          if [ -z "${REGISTRY_ACCESS_TOKEN}" ]; then
+            echo "REGISTRY_ACCESS_TOKEN is not set" >&2
+            exit 1
+          fi
+          comfy --skip-prompt --no-enable-telemetry env
+          comfy node publish --token "${REGISTRY_ACCESS_TOKEN}"
