@@ -1,17 +1,21 @@
-# Exact pins for packages this custom node installs into the ComfyUI
-# environment. Versions are the newest PyPI releases that were at least
-# 7 days old on 2026-10-24, except certifi (see below).
+# Floors for packages this node installs into ComfyUI's shared environment.
+# ComfyUI Manager runs this file with pip, so versions are minimums.
+# Each floor is the oldest release with no known vulnerability. There is
+# no upper bound: ComfyUI does not cap these packages, and these floors
+# sit inside its ranges (requests unpinned, Pillow>=10.1.0, aiohttp>=3.11.8).
 #
-# torch and numpy come from the ComfyUI install and are not pinned here.
-# Pinning them would replace the user's CUDA build.
+# yarl is not listed. It has no advisory above ComfyUI's yarl>=1.18.0.
+# aiohttp>=3.14.4 already requires yarl>=1.25.1,<2.
+#
+# torch and numpy stay with the ComfyUI install.
 
-requests==2.34.2
-urllib3==2.8.0
-# 2026.7.22 is the newest certifi release that is 7 days old, and it is
-# still affected by GHSA-6q48-6c7w-9gw2. 2026.10.19 is the official fix.
-certifi==2026.10.19
-idna==3.20
-charset-normalizer==3.5.2
-Pillow==13.0.0
-aiohttp==3.14.5
-yarl==1.25.1
+requests>=2.34.2
+urllib3>=2.8.0
+# GHSA-6q48-6c7w-9gw2. 2026.10.19 is the official fix.
+certifi>=2026.10.19
+# CVE-2026-45409, fixed in 3.15.
+idna>=3.15
+# October 2026 Pillow advisories, fixed in 13.0.0.
+Pillow>=13.0.0
+# Advisories through 3.14.3, fixed in 3.14.4.
+aiohttp>=3.14.4
