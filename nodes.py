@@ -1,7 +1,5 @@
 import torch
 import numpy as np
-import os
-from PIL import Image
 from .draggen_client import DraggenClient, DraggenMoodboard
 from .compositor import DraggenCompositor
 

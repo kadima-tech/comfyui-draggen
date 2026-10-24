@@ -1,8 +1,8 @@
-from PIL import Image, ImageDraw, ImageFont, ImageOps
+from PIL import Image, ImageDraw, ImageFont
 import requests
 from io import BytesIO
 import os
-from .draggen_client import DraggenMoodboard, DraggenElement
+from .draggen_client import DraggenMoodboard
 
 class DraggenCompositor:
     @staticmethod
@@ -99,7 +99,8 @@ class DraggenCompositor:
                 
                 # Helper to parse hex
                 def parse_color(c):
-                    if not c: return None
+                    if not c:
+                        return None
                     c = c.lstrip('#')
                     return tuple(int(c[i:i+2], 16) for i in (0, 2, 4)) + (255,)
                 
@@ -122,7 +123,7 @@ class DraggenCompositor:
                 # For now, minimal implementation.
                 try:
                     font = ImageFont.truetype("arial.ttf", size=24) # System font assumption
-                except:
+                except OSError:
                     font = ImageFont.load_default()
                 
                 # Text color
