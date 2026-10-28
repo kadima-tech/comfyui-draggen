@@ -30,7 +30,8 @@ jobs:
           python-version: "3.12"
 
       - name: Install comfy-cli
-        # comfy-cli 1.22.0 (PyPI 2026-09-30) plus its dependency set, hash-locked.
+        # comfy-cli 1.23.0 (PyPI 2026-10-20) plus its dependency set, hash-locked.
+        # Releases uploaded after 2026-10-21 are pinned to an older version.
         run: python -m pip install --require-hashes -r .github/requirements/comfy-cli.txt
 
       - name: Publish custom node
